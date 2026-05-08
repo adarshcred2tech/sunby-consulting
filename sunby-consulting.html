@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sunby Consulting — Real Estate Finance Risk & Portfolio Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #f7f7f5;
+    --slate-50: #f8f9fa;
+    --slate-100: #eef0f2;
+    --slate-200: #d8dce2;
+    --slate-400: #9aa1ad;
+    --slate-600: #5a6270;
+    --slate-800: #2c3038;
+    --slate-900: #181c22;
+    --ink: #111318;
+    --accent: #1a3a5c;
+    --accent-light: #2455820d;
+    --accent-mid: #245582;
+    --green: #2e8c4e;
+    --rule: rgba(0,0,0,0.08);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --max: 1200px;
+    --nav-h: 68px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { font-family: var(--font-body); background: var(--white); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 48px; }
+  .nav-logo { font-family: var(--font-display); font-size: 1.45rem; font-weight: 600; letter-spacing: 0.01em; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--accent-mid); font-weight: 300; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-600); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { color: var(--white) !important; background: var(--accent) !important; padding: 10px 22px !important; border-radius: 2px !important; }
+  .nav-cta:hover { background: var(--accent-mid) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); }
+  .mobile-menu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 99; background: var(--white); border-bottom: 1px solid var(--rule); padding: 24px 32px; flex-direction: column; gap: 20px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--slate-600); text-decoration: none; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--nav-h) + 80px) 48px 80px; background: var(--white); position: relative; overflow: hidden; }
+  .hero-grid { position: absolute; inset: 0; opacity: 0.025; background-image: linear-gradient(var(--ink) 1px, transparent 1px), linear-gradient(90deg, var(--ink) 1px, transparent 1px); background-size: 80px 80px; }
+  .hero-inner { max-width: var(--max); margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+  .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
+  .hero-eyebrow::before { content:''; display:block; width: 32px; height: 1px; background: var(--accent-mid); }
+  .hero-h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 5.5vw, 5rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); max-width: 860px; margin-bottom: 20px; }
+  .hero-h1 em { font-style: italic; color: var(--accent-mid); }
+  .hero-sub { font-size: 1.05rem; font-weight: 300; color: var(--slate-600); max-width: 580px; line-height: 1.7; margin-bottom: 48px; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary { display: inline-block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); background: var(--accent); padding: 15px 32px; border-radius: 2px; text-decoration: none; transition: background 0.2s; }
+  .btn-primary:hover { background: var(--accent-mid); }
+  .btn-secondary { display: inline-block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--slate-200); padding: 15px 32px; border-radius: 2px; text-decoration: none; transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--ink); }
+  .hero-stats { display: flex; gap: 48px; margin-top: 72px; padding-top: 48px; border-top: 1px solid var(--rule); flex-wrap: wrap; }
+  .stat-num { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--ink); line-height: 1.2; }
+  .stat-label { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.05em; color: var(--slate-400); margin-top: 5px; }
+
+  /* SECTION BASE */
+  section { padding: 100px 48px; }
+  .section-inner { max-width: var(--max); margin: 0 auto; }
+  .section-tag { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .section-tag::before { content:''; display:block; width:24px; height:1px; background:var(--accent-mid); }
+  .section-title { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.15; color: var(--ink); max-width: 640px; }
+  .section-title em { font-style: italic; color: var(--accent-mid); }
+  .section-desc { font-size: 0.95rem; color: var(--slate-600); line-height: 1.75; max-width: 560px; margin-top: 20px; }
+
+  /* POSITIONING */
+  #positioning { background: var(--slate-900); color: var(--white); padding: 80px 48px; }
+  #positioning .section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  #positioning .section-tag { color: #7ea8cc; }
+  #positioning .section-tag::before { background: #7ea8cc; }
+  #positioning .section-title { color: var(--white); max-width: none; }
+  .position-cards { display: flex; flex-direction: column; gap: 2px; }
+  .pos-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); padding: 22px 28px; display: flex; align-items: flex-start; gap: 16px; }
+  .pos-card-icon { font-size: 1.2rem; line-height: 1; margin-top: 3px; flex-shrink: 0; }
+  .pos-card-title { font-size: 0.85rem; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+  .pos-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  /* FOUNDERS */
+  #founders { background: var(--off-white); }
+  .founders-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 56px; }
+  .founders-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--rule); }
+  .founder-card { background: var(--off-white); padding: 44px 40px; transition: background 0.2s; }
+  .founder-card:hover { background: var(--white); }
+  .founder-initials { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; }
+  .founder-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 4px; }
+  .founder-role { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 20px; }
+  .founder-bio { font-size: 0.84rem; color: var(--slate-600); line-height: 1.75; margin-bottom: 20px; }
+  .founder-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .founder-tag { font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-mid); background: var(--accent-light); padding: 4px 10px; border-radius: 2px; }
+  .founder-linkedin { display: inline-flex; align-items: center; gap: 7px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-mid); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .founder-linkedin:hover { border-color: var(--accent-mid); }
+
+  /* LIFECYCLE */
+  #lifecycle { background: var(--white); }
+  .lifecycle-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 64px; }
+  .lifecycle-flow { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
+  .lifecycle-flow::before { content:''; position: absolute; top: 40px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, var(--accent) 0%, var(--slate-200) 100%); z-index: 0; }
+  .lc-step { text-align: center; position: relative; z-index: 1; padding: 0 12px; }
+  .lc-dot { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; border: 1px solid var(--slate-200); background: var(--white); }
+  .lc-step:first-child .lc-dot { background: var(--accent); border-color: var(--accent); }
+  .lc-step-phase { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 8px; }
+  .lc-step-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+  .lc-step-items { list-style: none; }
+  .lc-step-items li { font-size: 0.75rem; color: var(--slate-600); line-height: 1.6; padding: 2px 0; }
+  .lc-arrow { position: absolute; top: 36px; right: -14px; font-size: 0.9rem; color: var(--slate-400); z-index: 2; }
+
+  /* SERVICES */
+  #services { background: var(--off-white); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); margin-top: 56px; }
+  .service-card { background: var(--off-white); padding: 40px 36px; transition: background 0.2s; }
+  .service-card:hover { background: var(--white); }
+  .svc-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; color: var(--slate-200); line-height: 1; margin-bottom: 20px; }
+  .svc-title { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 12px; }
+  .svc-desc { font-size: 0.82rem; color: var(--slate-600); line-height: 1.65; margin-bottom: 20px; }
+  .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .svc-tag { font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-mid); background: var(--accent-light); padding: 4px 10px; border-radius: 2px; }
+
+  /* ASSET CLASSES */
+  #assets { background: var(--slate-900); padding: 100px 48px; }
+  #assets .section-tag { color: #7ea8cc; }
+  #assets .section-tag::before { background: #7ea8cc; }
+  #assets .section-title { color: var(--white); }
+  #assets .section-desc { color: rgba(255,255,255,0.55); max-width: 640px; }
+  .assets-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 48px; background: rgba(255,255,255,0.06); }
+  .asset-card { background: var(--slate-900); padding: 28px 24px; border: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; }
+  .asset-card:hover { background: rgba(255,255,255,0.04); }
+  .asset-icon { font-size: 1.5rem; margin-bottom: 14px; }
+  .asset-name { font-size: 0.9rem; font-weight: 500; color: var(--white); margin-bottom: 8px; }
+  .asset-desc { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  /* DELIVERABLES */
+  #deliverables { background: var(--white); }
+  .deliverables-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; margin-top: 56px; align-items: start; }
+  .deliverables-list { display: flex; flex-direction: column; gap: 2px; background: var(--rule); }
+  .deliv-item { background: var(--white); padding: 18px 24px; display: flex; align-items: center; gap: 16px; transition: background 0.15s; }
+  .deliv-item:hover { background: var(--off-white); }
+  .deliv-item.active { background: var(--accent); }
+  .deliv-num { font-family: var(--font-display); font-size: 1.1rem; font-weight: 300; color: var(--slate-200); width: 28px; flex-shrink: 0; }
+  .deliv-item.active .deliv-num { color: rgba(255,255,255,0.35); }
+  .deliv-name { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
+  .deliv-item.active .deliv-name { color: var(--white); }
+  .deliv-sub { font-size: 0.74rem; color: var(--slate-400); margin-top: 2px; }
+  .deliv-item.active .deliv-sub { color: rgba(255,255,255,0.55); }
+  .deliverables-note { background: var(--accent-light); border: 1px solid rgba(36,85,130,0.12); padding: 40px; }
+  .deliverables-note h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; color: var(--ink); margin-bottom: 16px; line-height: 1.2; }
+  .deliverables-note p { font-size: 0.84rem; color: var(--slate-600); line-height: 1.75; margin-bottom: 16px; }
+  .deliv-formats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .deliv-format { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-600); background: var(--white); border: 1px solid var(--rule); padding: 5px 12px; border-radius: 2px; }
+  .deliverables-note .note-cta { display: inline-block; margin-top: 28px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); background: var(--accent); padding: 13px 28px; border-radius: 2px; text-decoration: none; transition: background 0.2s; }
+  .deliverables-note .note-cta:hover { background: var(--accent-mid); }
+
+  /* PROBLEMS */
+  #problems { background: var(--off-white); }
+  .problems-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 56px; background: var(--rule); }
+  .problem-card { background: var(--off-white); padding: 40px; transition: background 0.2s; }
+  .problem-card:hover { background: var(--white); }
+  .prob-q { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--ink); margin-bottom: 14px; line-height: 1.3; font-style: italic; }
+  .prob-a { font-size: 0.82rem; color: var(--slate-600); line-height: 1.7; }
+  .prob-divider { width: 24px; height: 1px; background: var(--accent-mid); margin-bottom: 14px; }
+
+  /* ADVANTAGE */
+  #advantage { background: var(--white); }
+  .adv-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; margin-top: 56px; align-items: start; }
+  .adv-table { border: 1px solid var(--rule); }
+  .adv-table-head { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--slate-900); color: var(--white); padding: 14px 20px; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+  .adv-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 14px 20px; border-top: 1px solid var(--rule); align-items: center; font-size: 0.82rem; }
+  .adv-row:nth-child(odd) { background: var(--slate-50); }
+  .adv-check { color: var(--green); font-weight: 500; }
+  .adv-partial { color: var(--slate-400); }
+  .adv-area { color: var(--ink); font-weight: 500; }
+  .adv-quotes { display: flex; flex-direction: column; gap: 24px; }
+  .adv-quote { padding: 28px 32px; border-left: 3px solid var(--accent-mid); background: var(--accent-light); }
+  .adv-quote p { font-family: var(--font-display); font-size: 1.05rem; font-style: italic; color: var(--ink); line-height: 1.5; margin-bottom: 12px; }
+  .adv-quote span { font-size: 0.73rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-400); }
+
+  /* CLIENTS */
+  #clients { background: var(--slate-900); color: var(--white); }
+  #clients .section-tag { color: #7ea8cc; }
+  #clients .section-tag::before { background: #7ea8cc; }
+  #clients .section-title { color: var(--white); }
+  .clients-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-top: 56px; background: rgba(255,255,255,0.06); }
+  .client-card { background: var(--slate-900); padding: 32px 24px; border: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; }
+  .client-card:hover { background: rgba(255,255,255,0.04); }
+  .client-icon { font-size: 1.6rem; margin-bottom: 16px; }
+  .client-type { font-size: 0.88rem; font-weight: 500; color: var(--white); margin-bottom: 10px; }
+  .client-desc { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+  /* RECOVERY */
+  #recovery { background: var(--white); }
+  .recovery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 56px; background: var(--rule); }
+  .rec-card { background: var(--white); padding: 40px; transition: background 0.2s; }
+  .rec-card:hover { background: var(--off-white); }
+  .rec-icon { font-size: 1.5rem; margin-bottom: 16px; }
+  .rec-title { font-size: 0.95rem; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+  .rec-desc { font-size: 0.82rem; color: var(--slate-600); line-height: 1.7; margin-bottom: 16px; }
+  .rec-list { list-style: none; }
+  .rec-list li { font-size: 0.78rem; color: var(--slate-600); padding: 5px 0; border-bottom: 1px solid var(--rule); display: flex; gap: 8px; }
+  .rec-list li::before { content: '—'; color: var(--accent-mid); flex-shrink: 0; }
+
+  /* INSIGHTS */
+  #insights { background: var(--off-white); }
+  .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; background: var(--rule); }
+  .insight-card { background: var(--off-white); padding: 36px 32px; transition: background 0.2s; }
+  .insight-card:hover { background: var(--white); }
+  .insight-tag { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 14px; }
+  .insight-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--ink); line-height: 1.35; margin-bottom: 12px; font-weight: 400; }
+  .insight-desc { font-size: 0.78rem; color: var(--slate-600); line-height: 1.65; }
+  .insight-footer { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 0.7rem; color: var(--slate-400); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* CTA */
+  #cta { background: var(--accent); color: var(--white); padding: 100px 48px; }
+  #cta .section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  #cta .section-tag { color: rgba(255,255,255,0.5); }
+  #cta .section-tag::before { background: rgba(255,255,255,0.5); }
+  #cta .section-title { color: var(--white); max-width: none; }
+  #cta .section-desc { color: rgba(255,255,255,0.65); max-width: none; }
+  .cta-options { display: flex; flex-direction: column; gap: 2px; }
+  .cta-option { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); padding: 20px 24px; display: flex; align-items: center; gap: 16px; text-decoration: none; transition: background 0.2s; }
+  .cta-option:hover { background: rgba(255,255,255,0.13); }
+  .cta-opt-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .cta-opt-title { font-size: 0.85rem; font-weight: 500; color: var(--white); margin-bottom: 3px; }
+  .cta-opt-sub { font-size: 0.74rem; color: rgba(255,255,255,0.55); }
+  .cta-opt-arrow { margin-left: auto; color: rgba(255,255,255,0.4); font-size: 0.9rem; flex-shrink: 0; }
+
+  /* FOOTER */
+  footer { background: var(--slate-900); color: rgba(255,255,255,0.5); padding: 64px 48px 40px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: var(--white); margin-bottom: 12px; }
+  .footer-brand span { color: #7ea8cc; font-weight: 300; }
+  .footer-tagline { font-size: 0.78rem; line-height: 1.65; margin-bottom: 20px; }
+  .footer-disclaimer { font-size: 0.71rem; color: rgba(255,255,255,0.28); line-height: 1.7; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-col-title { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a { font-size: 0.8rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.9); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 0.73rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.22s; }
+  .fade-up:nth-child(3) { animation-delay: 0.34s; }
+  .fade-up:nth-child(4) { animation-delay: 0.46s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    #positioning .section-inner, .founders-intro, .lifecycle-header, .adv-layout, .deliverables-layout, #cta .section-inner { grid-template-columns: 1fr; gap: 48px; }
+    .lifecycle-flow { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .lifecycle-flow::before, .lc-arrow { display: none; }
+    .services-grid, .assets-grid { grid-template-columns: 1fr 1fr; }
+    .clients-grid { grid-template-columns: repeat(3, 1fr); }
+    .founders-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 72px 24px; }
+    #hero { padding: calc(var(--nav-h) + 48px) 24px 64px; }
+    .hero-stats { gap: 24px; margin-top: 48px; padding-top: 36px; }
+    .services-grid, .problems-grid, .recovery-grid, .insights-grid, .founders-grid, .assets-grid { grid-template-columns: 1fr; }
+    .clients-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    #positioning, #assets, #cta { padding: 72px 24px; }
+    footer { padding: 48px 24px 32px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Sunby <span>Consulting</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#assets">Asset Classes</a></li>
+    <li><a href="#recovery">Recovery</a></li>
+    <li><a href="#founders">Our Team</a></li>
+    <li><a href="#insights">Insights</a></li>
+    <li><a href="#cta" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#assets" onclick="toggleMenu()">Asset Classes</a>
+  <a href="#recovery" onclick="toggleMenu()">Recovery</a>
+  <a href="#founders" onclick="toggleMenu()">Our Team</a>
+  <a href="#insights" onclick="toggleMenu()">Insights</a>
+  <a href="#cta" onclick="toggleMenu()">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow fade-up">Real Estate Finance Risk &amp; Portfolio Intelligence — India</div>
+    <h1 class="hero-h1 fade-up">Independent risk intelligence<br>across the <em>full real estate<br>financing ecosystem</em></h1>
+    <p class="hero-sub fade-up">From builder finance and construction lending to structured real estate credit — Sunby Consulting delivers objective, institutionally-aligned risk advisory at every stage of the financing lifecycle.</p>
+    <div class="hero-btns fade-up">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#cta" class="btn-secondary">Speak to an Advisor</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">Credit Policy to Recovery</div>
+        <div class="stat-label">Full Lifecycle Coverage</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">Independent Risk Review</div>
+        <div class="stat-label">No Developer Affiliation</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">Escrow &amp; EWI Monitoring</div>
+        <div class="stat-label">Active Portfolio Surveillance</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">Built for NBFCs &amp; Private Credit</div>
+        <div class="stat-label">Institutional Standard</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section id="positioning">
+  <div class="section-inner">
+    <div>
+      <div class="section-tag">Why Sunby Consulting</div>
+      <h2 class="section-title" style="color:var(--white);">An <em style="color:#7ea8cc;">independent</em> risk partner — not a vendor</h2>
+      <p class="section-desc" style="color:rgba(255,255,255,0.6); margin-top:20px;">Lenders increasingly distrust developer-provided MIS, internal optimistic reporting, and relationship-driven underwriting. Sunby Consulting delivers objective, data-driven, and audit-friendly credit intelligence. Our frameworks are designed to support RBI-regulated lenders, AIFs, and private credit platforms — while remaining fully independent of any lending or regulatory mandate.</p>
+    </div>
+    <div class="position-cards">
+      <div class="pos-card">
+        <div class="pos-card-icon">⚖️</div>
+        <div>
+          <div class="pos-card-title">Objective &amp; Independent</div>
+          <div class="pos-card-desc">No developer affiliations. No relationship bias. Pure credit integrity at every engagement.</div>
+        </div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-icon">🔬</div>
+        <div>
+          <div class="pos-card-title">Data-Driven Intelligence</div>
+          <div class="pos-card-desc">Actionable credit intelligence generated across the full project lifecycle — not just at origination.</div>
+        </div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-icon">🏛️</div>
+        <div>
+          <div class="pos-card-title">Institutionally Aligned</div>
+          <div class="pos-card-desc">Frameworks designed to support RBI-regulated lenders, institutional credit platforms, and private funds.</div>
+        </div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-card-icon">📋</div>
+        <div>
+          <div class="pos-card-title">Audit-Friendly Outputs</div>
+          <div class="pos-card-desc">Structured reports, grading systems, and documentation built for board and regulatory review.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDERS -->
+<section id="founders">
+  <div class="section-inner">
+    <div class="founders-intro">
+      <div>
+        <div class="section-tag">Our Team</div>
+        <h2 class="section-title">Led by <em>real estate finance practitioners</em></h2>
+      </div>
+      <p class="section-desc" style="margin-top:0;">Sunby Consulting is built by professionals with deep, hands-on experience in construction finance, real estate underwriting, portfolio monitoring, and stressed asset resolution — not generalist consultants. Our advisory carries the credibility of practitioners who have sat on both sides of the credit table.</p>
+    </div>
+    <div class="founders-grid">
+      <div class="founder-card">
+        <div class="founder-initials">BT</div>
+        <div class="founder-name">Bobby Thomas M</div>
+        <div class="founder-role">Co-Founder &amp; Managing Partner</div>
+        <p class="founder-bio">A seasoned real estate finance professional with extensive experience in construction finance, credit underwriting, and portfolio risk management across leading financial institutions in India. Bobby brings deep expertise in structured real estate lending, developer assessment, and project-level credit monitoring — with a track record spanning residential, commercial, and mixed-use asset classes across the builder finance ecosystem.</p>
+        <div class="founder-tags">
+          <span class="founder-tag">Construction Finance</span>
+          <span class="founder-tag">Credit Underwriting</span>
+          <span class="founder-tag">Portfolio Risk</span>
+          <span class="founder-tag">Developer Assessment</span>
+        </div>
+        <a href="https://www.linkedin.com/in/bobby-thomas-m-7536519/" target="_blank" rel="noopener" class="founder-linkedin">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          View LinkedIn Profile
+        </a>
+      </div>
+      <div class="founder-card">
+        <div class="founder-initials">SA</div>
+        <div class="founder-name">Sunil Agarwal</div>
+        <div class="founder-role">Co-Founder &amp; Managing Partner</div>
+        <p class="founder-bio">A real estate finance and credit risk specialist with significant experience in NBFC and institutional lending environments. Sunil has worked extensively on real estate credit policy design, underwriting framework development, and stressed asset resolution — providing lenders with the institutional infrastructure needed to manage complex real estate portfolios at scale across the full builder finance spectrum.</p>
+        <div class="founder-tags">
+          <span class="founder-tag">Credit Policy Design</span>
+          <span class="founder-tag">NBFC Lending</span>
+          <span class="founder-tag">Stressed Assets</span>
+          <span class="founder-tag">CRE Risk Frameworks</span>
+        </div>
+        <a href="https://www.linkedin.com/in/sunil-agarwal-65254416/" target="_blank" rel="noopener" class="founder-linkedin">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          View LinkedIn Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFECYCLE -->
+<section id="lifecycle">
+  <div class="section-inner">
+    <div class="lifecycle-header">
+      <div>
+        <div class="section-tag">Lifecycle Coverage</div>
+        <h2 class="section-title">From origination to <em>recovery realization</em></h2>
+      </div>
+      <p class="section-desc" style="margin-top:0;">Most advisory firms cover one or two phases. Sunby Consulting operates across the entire credit lifecycle — making us uniquely positioned to prevent NPAs, not just respond to them.</p>
+    </div>
+    <div class="lifecycle-flow">
+      <div class="lc-step">
+        <div class="lc-dot" style="background:var(--accent);border-color:var(--accent);">📐</div>
+        <div class="lc-step-phase">Phase 01</div>
+        <div class="lc-step-title">Origination</div>
+        <ul class="lc-step-items">
+          <li>Credit policy design</li>
+          <li>Underwriting frameworks</li>
+          <li>Technical diligence</li>
+          <li>Risk grading</li>
+          <li>Sanction structuring</li>
+        </ul>
+        <span class="lc-arrow">→</span>
+      </div>
+      <div class="lc-step">
+        <div class="lc-dot">📡</div>
+        <div class="lc-step-phase">Phase 02</div>
+        <div class="lc-step-title">Active Monitoring</div>
+        <ul class="lc-step-items">
+          <li>Escrow surveillance</li>
+          <li>Portfolio monitoring</li>
+          <li>EWI framework</li>
+          <li>Covenant tracking</li>
+          <li>MIS reporting</li>
+        </ul>
+        <span class="lc-arrow">→</span>
+      </div>
+      <div class="lc-step">
+        <div class="lc-dot">🛡️</div>
+        <div class="lc-step-phase">Phase 03</div>
+        <div class="lc-step-title">Stress &amp; Recovery</div>
+        <ul class="lc-step-items">
+          <li>Early stress detection</li>
+          <li>Recovery analytics</li>
+          <li>Resolution support</li>
+          <li>Co-lender coordination</li>
+          <li>Forensic cashflow review</li>
+        </ul>
+        <span class="lc-arrow">→</span>
+      </div>
+      <div class="lc-step">
+        <div class="lc-dot">✅</div>
+        <div class="lc-step-phase">Phase 04</div>
+        <div class="lc-step-title">Exit</div>
+        <ul class="lc-step-items">
+          <li>Closure monitoring</li>
+          <li>Recovery realization</li>
+          <li>Final audit reports</li>
+          <li>OTS evaluation</li>
+          <li>Portfolio sign-off</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag">Our Services</div>
+    <h2 class="section-title">Five verticals.<br><em>One integrated partner.</em></h2>
+    <p class="section-desc">Covering the full spectrum of real estate finance risk — builder finance, structured lending, construction credit, and beyond.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="svc-num">01</div>
+        <div class="svc-title">Credit Policy &amp; Risk Framework Advisory</div>
+        <div class="svc-desc">We help NBFCs and emerging lenders design institutional-grade credit policies — from real estate lending frameworks to approval matrices and delegation structures. A high-value consulting stream for lenders building or formalising their credit infrastructure.</div>
+        <div class="svc-tags"><span class="svc-tag">Risk Grading</span><span class="svc-tag">Approval Matrix</span><span class="svc-tag">Delegation Frameworks</span><span class="svc-tag">Concentration Limits</span><span class="svc-tag">Developer Grading</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">02</div>
+        <div class="svc-title">Underwriting &amp; Origination Support</div>
+        <div class="svc-desc">Independent credit assessment, technical diligence, and structured underwriting across residential, commercial, plotted, warehousing, and mixed-use real estate — designed to institutionalise your origination standards.</div>
+        <div class="svc-tags"><span class="svc-tag">CRE Underwriting</span><span class="svc-tag">Technical Diligence</span><span class="svc-tag">Project Viability</span><span class="svc-tag">Sanction Structuring</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">03</div>
+        <div class="svc-title">Portfolio Monitoring &amp; Escrow Surveillance</div>
+        <div class="svc-desc">Structured portfolio surveillance with EWI frameworks, escrow tracking, covenant monitoring, and escalation protocols — generating actionable credit intelligence continuously across your real estate finance book.</div>
+        <div class="svc-tags"><span class="svc-tag">Escrow Tracking</span><span class="svc-tag">EWI Frameworks</span><span class="svc-tag">Sales Trigger Monitoring</span><span class="svc-tag">DSRA Structures</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">04</div>
+        <div class="svc-title">Stressed Assets &amp; Recovery Advisory</div>
+        <div class="svc-desc">From early stress detection to recovery realization — structured resolution support that helps lenders act decisively before accounts deteriorate. We provide the intelligence lenders need at the most critical stage of the credit cycle.</div>
+        <div class="svc-tags"><span class="svc-tag">SMA Monitoring</span><span class="svc-tag">Recovery Playbooks</span><span class="svc-tag">Restructuring Support</span><span class="svc-tag">Cashflow Forecasting</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">05</div>
+        <div class="svc-title">Covenant &amp; Portfolio Risk Architecture</div>
+        <div class="svc-desc">We design the risk architecture that holds your portfolio together — escrow covenants, sales triggers, DSRA structures, collection benchmarks, and construction milestone frameworks across the entire builder finance ecosystem.</div>
+        <div class="svc-tags"><span class="svc-tag">Escrow Covenants</span><span class="svc-tag">Geography Exposure</span><span class="svc-tag">Product Segmentation</span><span class="svc-tag">Milestone Frameworks</span></div>
+      </div>
+      <div class="service-card" style="background:var(--accent);">
+        <div class="svc-num" style="color:rgba(255,255,255,0.15);">+</div>
+        <div class="svc-title" style="color:var(--white);">Tailored Engagements</div>
+        <div class="svc-desc" style="color:rgba(255,255,255,0.65);">Every lender's portfolio is different. We structure bespoke advisory mandates for banks, NBFCs, AIFs, ARCs, and family offices based on specific risk priorities across the real estate finance spectrum.</div>
+        <div style="margin-top:24px;"><a href="#cta" style="display:inline-block;font-size:0.72rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent);background:var(--white);padding:12px 22px;border-radius:2px;text-decoration:none;">Discuss Your Needs</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSET CLASSES -->
+<section id="assets">
+  <div class="section-inner">
+    <div class="section-tag">Asset Classes</div>
+    <h2 class="section-title">Covering the full <em style="color:#7ea8cc;">builder finance</em> ecosystem</h2>
+    <p class="section-desc">Our advisory spans the entire spectrum of real estate financing in India — from early-stage construction credit to last-mile funding and stressed asset resolution across all major property types.</p>
+    <div class="assets-grid">
+      <div class="asset-card">
+        <div class="asset-icon">🏘️</div>
+        <div class="asset-name">Residential Projects</div>
+        <div class="asset-desc">Construction finance, RERA-linked tranches, escrow monitoring, and sales velocity tracking for residential developments.</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🏢</div>
+        <div class="asset-name">Commercial Real Estate</div>
+        <div class="asset-desc">Lease rental discounting, under-construction CRE, pre-lease structured lending, and occupancy risk assessment.</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🗺️</div>
+        <div class="asset-name">Plotted Development</div>
+        <div class="asset-desc">Infrastructure-linked lending, phased revenue monitoring, approval milestone tracking, and collection intelligence.</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🏭</div>
+        <div class="asset-name">Warehousing &amp; Industrial</div>
+        <div class="asset-desc">Construction-phase monitoring, lease-up risk assessment, tenant covenant review, and logistics park credit frameworks.</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🔀</div>
+        <div class="asset-name">Mixed-Use Projects</div>
+        <div class="asset-desc">Multi-asset credit frameworks, cashflow separation analysis, and cross-collateral risk assessment for complex developments.</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🏁</div>
+        <div class="asset-name">Last-Mile Funding</div>
+        <div class="asset-desc">Cost-to-completion analysis, completion risk assessment, and structured last-mile credit frameworks for near-complete projects.</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">⚠️</div>
+        <div class="asset-name">Stressed Assets</div>
+        <div class="asset-desc">Stalled project viability review, recovery strategy advisory, and resolution monitoring for NPA and SMA accounts.</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🏗️</div>
+        <div class="asset-name">Builder Finance (General)</div>
+        <div class="asset-desc">End-to-end credit intelligence for lenders across the entire developer funding ecosystem — from land acquisition to project completion.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section id="deliverables">
+  <div class="section-inner">
+    <div class="section-tag">What You Receive</div>
+    <h2 class="section-title">Structured outputs.<br><em>Actionable intelligence.</em></h2>
+    <div class="deliverables-layout">
+      <div class="deliverables-list">
+        <div class="deliv-item active">
+          <div class="deliv-num">01</div>
+          <div><div class="deliv-name">Credit Appraisal Note</div><div class="deliv-sub">Structured origination-level risk assessment</div></div>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-num">02</div>
+          <div><div class="deliv-name">Project Risk Grading Report</div><div class="deliv-sub">Standardised developer and project risk scoring</div></div>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-num">03</div>
+          <div><div class="deliv-name">Escrow Monitoring MIS</div><div class="deliv-sub">Monthly escrow inflow / outflow surveillance</div></div>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-num">04</div>
+          <div><div class="deliv-name">Monthly Portfolio Dashboard</div><div class="deliv-sub">Portfolio-level credit health and EWI summary</div></div>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-num">05</div>
+          <div><div class="deliv-name">EWI Tracker</div><div class="deliv-sub">Early Warning Indicator flags with escalation triggers</div></div>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-num">06</div>
+          <div><div class="deliv-name">Recovery Strategy Note</div><div class="deliv-sub">Structured resolution pathway advisory for stressed accounts</div></div>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-num">07</div>
+          <div><div class="deliv-name">Cost-to-Completion Assessment</div><div class="deliv-sub">Independent balance construction cost and completion risk review</div></div>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-num">08</div>
+          <div><div class="deliv-name">Developer Grading Report</div><div class="deliv-sub">Execution track record, financial strength, and credibility assessment</div></div>
+        </div>
+      </div>
+      <div class="deliverables-note">
+        <h3>Institutional-grade outputs, every time</h3>
+        <p>Every deliverable from Sunby Consulting is structured for institutional consumption — designed to be presented to credit committees, boards, and audit functions without modification.</p>
+        <p>Our reports serve as the primary credit intelligence input for lenders — not a supplement to developer-provided data. They are objective, evidence-based, and formatted to support credit decision-making and regulatory review across the real estate finance ecosystem.</p>
+        <div>
+          <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate-400);margin-bottom:10px;">Available Report Formats</div>
+          <div class="deliv-formats">
+            <span class="deliv-format">PDF Report</span>
+            <span class="deliv-format">Excel MIS</span>
+            <span class="deliv-format">Dashboard</span>
+            <span class="deliv-format">Presentation Deck</span>
+            <span class="deliv-format">Board Note</span>
+          </div>
+        </div>
+        <a href="mailto:contact@sunbyconsulting.com?subject=Request: Sample Report" class="note-cta">Request a Sample Report</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section id="problems">
+  <div class="section-inner">
+    <div class="section-tag">Problems We Solve</div>
+    <h2 class="section-title">Real challenges.<br><em>Structured answers.</em></h2>
+    <div class="problems-grid">
+      <div class="problem-card">
+        <div class="prob-divider"></div>
+        <div class="prob-q">Inconsistent underwriting standards across the portfolio</div>
+        <div class="prob-a">We help institutionalise real estate credit assessment frameworks — from risk grading templates to standardised underwriting models — ensuring consistency at every origination desk.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-divider"></div>
+        <div class="prob-q">Limited visibility into active portfolio performance</div>
+        <div class="prob-a">We build structured monitoring and surveillance systems with clear escalation matrices, EWI triggers, and periodic portfolio review formats tailored to your risk appetite.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-divider"></div>
+        <div class="prob-q">Stress identified too late — after accounts have already deteriorated</div>
+        <div class="prob-a">Our Early Warning Indicator frameworks surface risk signals at the SMA-0 stage — before they become SMA-1, SMA-2, or NPA accounts requiring regulatory action.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-divider"></div>
+        <div class="prob-q">Weak visibility into stressed account recovery prospects</div>
+        <div class="prob-a">We provide structured stressed asset monitoring — site inspections, receivable audits, forensic cashflow review, and diversion analysis — to give lenders clear recovery intelligence.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-divider"></div>
+        <div class="prob-q">No structured credit policy for real estate lending</div>
+        <div class="prob-a">We design end-to-end real estate credit policy documents — concentration limits, geography frameworks, product segmentation, developer grading models, and covenant structures — built for regulatory robustness.</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-divider"></div>
+        <div class="prob-q">Difficulty coordinating with co-lenders in resolution scenarios</div>
+        <div class="prob-a">We serve as an objective third party in co-lender coordination — providing cost-to-completion analysis, project viability reassessment, and consensus-building support across lender groups.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGE -->
+<section id="advantage">
+  <div class="section-inner">
+    <div class="section-tag">Our Moat</div>
+    <h2 class="section-title">A combination that is <em>exceptionally rare</em></h2>
+    <div class="adv-layout">
+      <div>
+        <div class="adv-table">
+          <div class="adv-table-head"><span>Capability</span><span>Most Firms</span><span>Sunby Consulting</span></div>
+          <div class="adv-row"><span class="adv-area">Underwriting</span><span class="adv-check">✓ Yes</span><span class="adv-check">✓ Yes</span></div>
+          <div class="adv-row"><span class="adv-area">Portfolio Monitoring</span><span class="adv-partial">Some</span><span class="adv-check">✓ Yes</span></div>
+          <div class="adv-row"><span class="adv-area">Recovery Support</span><span class="adv-partial">Few</span><span class="adv-check">✓ Yes</span></div>
+          <div class="adv-row"><span class="adv-area">Policy Design</span><span class="adv-partial">Very Few</span><span class="adv-check">✓ Yes</span></div>
+          <div class="adv-row"><span class="adv-area">EWI Frameworks</span><span class="adv-partial">Rare</span><span class="adv-check">✓ Yes</span></div>
+          <div class="adv-row"><span class="adv-area">Full Lifecycle Integration</span><span style="color:#c0392b;">✗ Rare</span><span class="adv-check">✓ Yes</span></div>
+        </div>
+      </div>
+      <div class="adv-quotes">
+        <div class="adv-quote">
+          <p>"We help prevent NPAs — not just recover from them."</p>
+          <span>Early Warning Intelligence</span>
+        </div>
+        <div class="adv-quote">
+          <p>"Actionable credit intelligence across the full project lifecycle."</p>
+          <span>Portfolio Surveillance Positioning</span>
+        </div>
+        <div class="adv-quote">
+          <p>"Independent. Data-driven. Audit-friendly. Institutionally aligned."</p>
+          <span>Core Trust Proposition</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="section-inner">
+    <div class="section-tag">Who We Work With</div>
+    <h2 class="section-title">Purpose-built for <em>institutional lenders</em></h2>
+    <div class="clients-grid">
+      <div class="client-card">
+        <div class="client-icon">🏦</div>
+        <div class="client-type">Banks</div>
+        <div class="client-desc">Real estate underwriting support, portfolio monitoring, and independent technical diligence for structured credit books.</div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">🏢</div>
+        <div class="client-type">NBFCs</div>
+        <div class="client-desc">Institutional credit team support, credit policy design, developer grading, and full-portfolio surveillance.</div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">📊</div>
+        <div class="client-type">AIFs &amp; Private Credit</div>
+        <div class="client-desc">Independent due diligence, stressed asset monitoring, and portfolio risk architecture for alternative credit platforms.</div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">⚖️</div>
+        <div class="client-type">ARCs &amp; Resolution Platforms</div>
+        <div class="client-desc">Recovery analytics, project viability review, cost-to-completion analysis, and resolution strategy advisory.</div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">🏡</div>
+        <div class="client-type">Family Offices &amp; Investors</div>
+        <div class="client-desc">Independent project risk assessment, cashflow intelligence, and structured credit review for direct real estate exposures.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOVERY -->
+<section id="recovery">
+  <div class="section-inner">
+    <div class="section-tag">Stressed Assets &amp; Recovery</div>
+    <h2 class="section-title">We prevent NPAs.<br><em>We also resolve them.</em></h2>
+    <p class="section-desc">Few firms combine underwriting expertise, monitoring capability, and recovery understanding. That combination is what makes our stressed asset advisory uniquely effective for Indian lenders navigating the real estate finance cycle.</p>
+    <div class="recovery-grid">
+      <div class="rec-card">
+        <div class="rec-icon">🔍</div>
+        <div class="rec-title">A. Early Stress Detection</div>
+        <div class="rec-desc">We surface risk before it becomes an NPA — through structured EWI frameworks and portfolio surveillance signals that most lenders miss until it is too late.</div>
+        <ul class="rec-list">
+          <li>Sales slowdown detection</li>
+          <li>Escrow shortfall identification</li>
+          <li>Construction variance analysis</li>
+          <li>Collection stress indicators</li>
+        </ul>
+      </div>
+      <div class="rec-card">
+        <div class="rec-icon">🔧</div>
+        <div class="rec-title">B. Resolution Support</div>
+        <div class="rec-desc">Structured advisory for lenders navigating stressed accounts — from viability reassessment to co-lender alignment and restructuring frameworks.</div>
+        <ul class="rec-list">
+          <li>Project viability reassessment</li>
+          <li>Cost-to-completion analysis</li>
+          <li>Restructuring support</li>
+          <li>Escrow restructuring</li>
+          <li>Co-lender coordination</li>
+          <li>Resolution monitoring</li>
+        </ul>
+      </div>
+      <div class="rec-card">
+        <div class="rec-icon">📈</div>
+        <div class="rec-title">C. Recovery Strategy Advisory</div>
+        <div class="rec-desc">Helping lenders evaluate recovery pathways and maximise realization on stressed real estate exposures through structured analysis.</div>
+        <ul class="rec-list">
+          <li>Inventory monetisation assessment</li>
+          <li>Asset sale support</li>
+          <li>One-time settlement evaluation</li>
+          <li>Recovery cashflow forecasting</li>
+        </ul>
+      </div>
+      <div class="rec-card">
+        <div class="rec-icon">🔎</div>
+        <div class="rec-title">D. Monitoring of Stressed Accounts</div>
+        <div class="rec-desc">On-ground and document-level monitoring to give lenders real-time clarity on stressed project status and recovery progress.</div>
+        <ul class="rec-list">
+          <li>Site inspections</li>
+          <li>Construction completion tracking</li>
+          <li>Receivable audits</li>
+          <li>Forensic cashflow review</li>
+          <li>Diversion analysis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section id="insights">
+  <div class="section-inner">
+    <div class="section-tag">Insights &amp; Thought Leadership</div>
+    <h2 class="section-title">Credit intelligence <em>you can act on</em></h2>
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="insight-tag">EWI Frameworks</div>
+        <div class="insight-title">Early Warning Indicators in Construction Finance</div>
+        <div class="insight-desc">A structured framework for identifying pre-NPA signals in real estate credit books — from escrow shortfalls to sales velocity deterioration.</div>
+        <div class="insight-footer">Coming Soon &nbsp;·&nbsp; Research</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-tag">NPA Lifecycle</div>
+        <div class="insight-title">Why Real Estate NPAs Escalate Late</div>
+        <div class="insight-desc">Examining the structural reasons why real estate credit stress tends to crystallise late — and how lenders can redesign their monitoring to catch it earlier.</div>
+        <div class="insight-footer">Coming Soon &nbsp;·&nbsp; Analysis</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-tag">Escrow Intelligence</div>
+        <div class="insight-title">Escrow Leakage Detection Frameworks</div>
+        <div class="insight-desc">How structured escrow surveillance — beyond balance tracking — can detect diversion and cashflow stress before formal default occurs.</div>
+        <div class="insight-footer">Coming Soon &nbsp;·&nbsp; Framework</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-tag">Origination Risk</div>
+        <div class="insight-title">Last-Mile Funding Risk Assessment</div>
+        <div class="insight-desc">Practical methodology for evaluating completion risk in projects where construction is advanced but funding gaps remain — the most dangerous stage.</div>
+        <div class="insight-footer">Coming Soon &nbsp;·&nbsp; Methodology</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-tag">Recovery Strategy</div>
+        <div class="insight-title">Recovery Strategy for Stalled Residential Projects</div>
+        <div class="insight-desc">A decision framework for lenders evaluating resolution pathways in stalled residential developments — from restart viability to OTS structuring.</div>
+        <div class="insight-footer">Coming Soon &nbsp;·&nbsp; Case Study</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-tag">Completion Risk</div>
+        <div class="insight-title">How to Evaluate Cost-to-Completion Risk</div>
+        <div class="insight-desc">Practical guidance on independent cost-to-completion assessments — the variables lenders miss, and how to structure monitoring milestones around them.</div>
+        <div class="insight-footer">Coming Soon &nbsp;·&nbsp; Guide</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-inner">
+    <div>
+      <div class="section-tag">Get Started</div>
+      <h2 class="section-title">How can we support your lending programme?</h2>
+      <p class="section-desc">Choose an engagement type, or reach out directly to discuss your specific requirements.</p>
+    </div>
+    <div class="cta-options">
+      <a href="mailto:contact@sunbyconsulting.com?subject=Request: Sample Monitoring Report" class="cta-option">
+        <div class="cta-opt-icon">📄</div>
+        <div><div class="cta-opt-title">Request a Sample Monitoring Report</div><div class="cta-opt-sub">See our escrow MIS or portfolio dashboard format</div></div>
+        <div class="cta-opt-arrow">→</div>
+      </a>
+      <a href="mailto:contact@sunbyconsulting.com?subject=Request: Portfolio Review Discussion" class="cta-option">
+        <div class="cta-opt-icon">📊</div>
+        <div><div class="cta-opt-title">Discuss a Portfolio Review</div><div class="cta-opt-sub">Understand how we can add visibility to your existing book</div></div>
+        <div class="cta-opt-arrow">→</div>
+      </a>
+      <a href="mailto:contact@sunbyconsulting.com?subject=Request: Credit Policy Review" class="cta-option">
+        <div class="cta-opt-icon">📋</div>
+        <div><div class="cta-opt-title">Set Up a Credit Policy Review</div><div class="cta-opt-sub">Design or strengthen your real estate lending framework</div></div>
+        <div class="cta-opt-arrow">→</div>
+      </a>
+      <a href="mailto:contact@sunbyconsulting.com?subject=Request: Stressed Account Evaluation" class="cta-option">
+        <div class="cta-opt-icon">🛡️</div>
+        <div><div class="cta-opt-title">Evaluate a Stressed Account</div><div class="cta-opt-sub">Get independent recovery intelligence on an SMA or NPA exposure</div></div>
+        <div class="cta-opt-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Sunby <span>Consulting</span></div>
+      <p class="footer-tagline">Real Estate Finance Risk &amp; Portfolio Intelligence.<br>Independent. Institutional. End-to-End.</p>
+      <p class="footer-disclaimer">Sunby Consulting provides independent advisory, underwriting support, monitoring, and recovery strategy services. It does not provide legal opinions, valuation certificates, or investment advice, and does not act as a lender or regulated financial entity. Frameworks and advisory outputs are designed to support the decision-making of financial institutions and credit professionals.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="#services">Credit Policy Advisory</a></li>
+        <li><a href="#services">Underwriting Support</a></li>
+        <li><a href="#services">Portfolio Monitoring</a></li>
+        <li><a href="#services">Stressed Assets &amp; Recovery</a></li>
+        <li><a href="#services">Covenant Architecture</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <ul>
+        <li><a href="#lifecycle">Lifecycle Coverage</a></li>
+        <li><a href="#assets">Asset Classes</a></li>
+        <li><a href="#clients">Who We Serve</a></li>
+        <li><a href="#founders">Our Team</a></li>
+        <li><a href="#insights">Insights</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="mailto:contact@sunbyconsulting.com">contact@sunbyconsulting.com</a></li>
+        <li><a href="#">India</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Sunby Consulting. All rights reserved.</span>
+    <span>Independent Real Estate Finance Risk &amp; Portfolio Intelligence</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.service-card, .problem-card, .rec-card, .insight-card, .client-card, .lc-step, .pos-card, .adv-quote, .founder-card, .asset-card, .deliv-item, .cta-option').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
